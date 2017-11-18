@@ -51,7 +51,7 @@ function HomeMeteoAccessory(log, config) {
     }
 
     if(this.motion !== null) {
-        this.motionService = new Service.motionService("Motion Sensor");
+        this.motionService = new Service.MotionSensor("Motion Sensor");
         this.motionService
             .getCharacteristic(Characteristic.MotionDetected)
             .on('get', this.getValue.bind(this, 'motion'));
@@ -104,14 +104,14 @@ HomeMeteoAccessory.prototype.getValue = function(name, callback) {
                                         else{
                                             request(this.url + this.temp_url, (error, response, body) => {
                                                 if (!error && response.statusCode == 200) {
-                                                    var motion = body;
+                                                    var motion = parseInt(body, 10);
                                                     if(name == "motion") {
                                                         return callback(null, motion);
                                                     } else {
                                                         return callback(null, { humidity: humidity, temperature: temperature, light: light, motion: motion });
                                                     } // End: else, name != "motion"
                                                 } // End: if OK respone
-                                            } // End request motion
+                                            }); // End request motion
                                         } //End: else, name != "humidity"
                                     } //End: if OK respone
                                 }); //End: request light
