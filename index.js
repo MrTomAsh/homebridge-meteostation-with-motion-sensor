@@ -80,32 +80,32 @@ function HomeMeteoAccessory(log, config) {
 }
 
 HomeMeteoAccessory.prototype.getValue = function(name, callback) {
-    if(type == "page"){
+    if(this.type === "page"){
         request(this.url + this.temp_url, (error, response, body) => {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode === 200) {
                 var temperature = parseInt(body, 10);
-                if(name == "temperature"){
+                if(this.name === "temperature"){
                     return callback(null, temperature);
                 }
                 else{
                     request(this.url + this.temp_url, (error, response, body) => {
-                        if (!error && response.statusCode == 200) {
+                        if (!error && response.statusCode === 200) {
                             var humidity = parseInt(body, 10);
-                            if(name == "humidity"){
+                            if(this.name === "humidity"){
                                 return callback(null, humidity);
                             }
                             else{
                                 request(this.url + this.temp_url, (error, response, body) => {
-                                    if (!error && response.statusCode == 200) {
+                                    if (!error && response.statusCode === 200) {
                                         var light = parseInt(body, 10);
-                                        if(name == "light"){
+                                        if(this.name === "light"){
                                             return callback(null, light);
                                         }
                                         else{
                                             request(this.url + this.temp_url, (error, response, body) => {
-                                                if (!error && response.statusCode == 200) {
+                                                if (!error && response.statusCode === 200) {
                                                     var motion = parseInt(body, 10);
-                                                    if(name == "motion") {
+                                                    if(this.name === "motion") {
                                                         return callback(null, motion);
                                                     } else {
                                                         return callback(null, { humidity: humidity, temperature: temperature, light: light, motion: motion });
@@ -123,7 +123,7 @@ HomeMeteoAccessory.prototype.getValue = function(name, callback) {
         }); //End: request temperature
     } else {
         request(this.url + this.json_url, (error, response, body) => {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode === 200) {
                 var obj = JSON.parse(body);
                 return callback(null, { humidity: obj.humidity, temperature: obj.temperature, light: obj.light, motion: obj.motion });
             } 

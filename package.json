@@ -1,6 +1,6 @@
 {
   "name": "homebridge-meteostation-with-motion-sensor",
-  "version": "0.7.1.1",
+  "version": "0.8.0-beta",
   "author": "BardinPetr & Tomasz Bzymek",
   "license": "MIT",
   "description": "Plugin for Homebridge to use Arduino (ESP8266) - based home meteostation and motion sensor with HomeKit",
